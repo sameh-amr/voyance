@@ -14,6 +14,7 @@ const userReducer = createSlice({
   name: "user",
   initialState,
   reducers: {
+    //encrypt user information before saving it inside the store
     setUserInfo: (state, action) => {
       var encryptedValues = encryptObject(action.payload);
       state.familyName = encryptedValues.familyName;

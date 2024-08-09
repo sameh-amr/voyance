@@ -12,6 +12,7 @@ function LoginPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  //on google login success or failure
   const onSuccess = (res: any) => {
     dispatch(setUserInfo(jwtDecode(res.credential)));
     if (userRole === "Patient") {
@@ -24,9 +25,9 @@ function LoginPage() {
     console.error("failed");
   };
 
+  //checking who is currently logging in is it a doctor or patient
   const onToggle = () => {
     if (userRole === "Patient") {
-      console.error("hh");
       dispatch(setUserRole("Doctor"));
       return;
     }
