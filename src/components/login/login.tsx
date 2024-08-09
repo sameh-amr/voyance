@@ -4,16 +4,12 @@ import { useAppDispatch } from "../../redux/store";
 import "./login.css";
 //our login button we use for exeuting google login behaviour
 
-const LoginButton = () => {
-  const clientId = process.env.REACT_APP_CLIENT_ID ?? "";
-  const dispatch = useAppDispatch();
-
-  const onSuccess = (res: any) => {
-    dispatch(setUserInfo(res.profileObj));
-  };
-  const onFailure = (res: any) => {
-    console.error("login failed  =>", res);
-  };
+const LoginButton = (props: {
+  clientId: string;
+  onSuccess: (res: any) => void;
+  onFailure: (res: any) => void;
+}) => {
+  const { clientId, onSuccess, onFailure } = props;
   return (
     <div>
       <GoogleLogin
