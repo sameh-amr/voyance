@@ -9,6 +9,7 @@ const initialState: IUser = {
   googleId: "",
   imageUrl: "",
   name: "",
+  role: "Patient",
 };
 const userReducer = createSlice({
   name: "user",
@@ -31,10 +32,14 @@ const userReducer = createSlice({
         googleId: "",
         imageUrl: "",
         name: "",
+        role: "Patient",
       };
+    },
+    setUserRole: (state, action) => {
+      state.role = action.payload;
     },
   },
 });
 
-export const { setUserInfo, resetUserInfo } = userReducer.actions;
+export const { setUserInfo, resetUserInfo, setUserRole } = userReducer.actions;
 export default userReducer;

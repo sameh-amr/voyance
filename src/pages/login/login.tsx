@@ -1,8 +1,8 @@
 import LoginButton from "../../components/login/login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../redux/store";
-import { setUserInfo } from "../../redux/reducer/auth";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { setUserInfo, setUserRole } from "../../redux/reducer/auth";
 
 function LoginPage() {
   useEffect(() => {
@@ -16,6 +16,7 @@ function LoginPage() {
   });
 
   const clientId = process.env.REACT_APP_CLIENT_ID ?? "";
+  const userRole = useAppSelector((state) => state.user.role);
   const dispatch = useAppDispatch();
 
   const onSuccess = (res: any) => {
@@ -23,6 +24,15 @@ function LoginPage() {
   };
   const onFailure = (res: any) => {
     console.error("login failed ", res);
+  };
+
+  const onToggle = () => {
+    if (userRole === "Patient") {
+      console.error("hh")
+      dispatch(setUserRole("Doctor"));
+      return;
+    }
+    dispatch(setUserRole("Patient"));
   };
   return (
     <section id="hero" className="hero section light-background">
@@ -48,6 +58,14 @@ function LoginPage() {
                 optio ad corporis.
               </p>
               <div className="text-center">
+                <div className="mb-2">
+                  <input
+                    type="checkbox"
+                    checked={userRole === "Patient"}
+                    onChange={onToggle}
+                  />
+                  <span className="m-2">Login as a patient</span>
+                </div>
                 <LoginButton
                   clientId={clientId}
                   onFailure={onFailure}
