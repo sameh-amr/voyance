@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../../models/googleauth/IUser";
+import { encryptObject } from "../../utils/Encyption/encryption";
 //defining the state and actions for the userslice in our redux store
 const initialState: IUser = {
   email: "",
@@ -14,12 +15,13 @@ const userReducer = createSlice({
   initialState,
   reducers: {
     setUserInfo: (state, action) => {
-      state.familyName = action.payload.familyName;
-      state.email = action.payload.email;
-      state.givenName = action.payload.givenName;
-      state.googleId = action.payload.googleId;
-      state.imageUrl = action.payload.imageUrl;
-      state.name = action.payload.name;
+      var encryptedValues = encryptObject(action.payload);
+      state.familyName = encryptedValues.familyName;
+      state.email = encryptedValues.email;
+      state.givenName = encryptedValues.givenName;
+      state.googleId = encryptedValues.googleId;
+      state.imageUrl = encryptedValues.imageUrl;
+      state.name = encryptedValues.name;
     },
     resetUserInfo: (state, action) => {
       state = {
