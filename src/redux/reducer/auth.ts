@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../../models/googleauth/IUser";
+//defining the state and actions for the userslice in our redux store
 const initialState: IUser = {
   email: "",
   familyName: "",

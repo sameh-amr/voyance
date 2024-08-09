@@ -1,4 +1,5 @@
-export interface IUser {
+//identifying the type for our user  
+export type IUser ={
   googleId: string | null;
   imageUrl: string | null;
   email: string | null;
