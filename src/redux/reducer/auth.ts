@@ -14,7 +14,12 @@ const userReducer = createSlice({
   initialState,
   reducers: {
     setUserInfo: (state, action) => {
-      state = action.payload;
+      state.familyName = action.payload.familyName;
+      state.email = action.payload.email;
+      state.givenName = action.payload.givenName;
+      state.googleId = action.payload.googleId;
+      state.imageUrl = action.payload.imageUrl;
+      state.name = action.payload.name;
     },
     resetUserInfo: (state, action) => {
       state = {
