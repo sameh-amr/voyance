@@ -6,16 +6,16 @@ import "./login.css";
 
 const LoginButton = (props: {
   clientId: string;
-  onSuccess: (res: any) => void;
+  onSuccessfullLogin: (res: any) => void;
   onFailure: (res: any) => void;
 }) => {
-  const { clientId, onSuccess, onFailure } = props;
+  const { clientId, onSuccessfullLogin, onFailure } = props;
   return (
     <div>
       <GoogleLogin
         clientId={clientId}
         buttonText="login"
-        onSuccess={onSuccess}
+        onSuccess={onSuccessfullLogin}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}

@@ -3,6 +3,9 @@ import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { setUserInfo, setUserRole } from "../../redux/reducer/auth";
+import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 function LoginPage() {
   useEffect(() => {
@@ -18,17 +21,23 @@ function LoginPage() {
   const clientId = process.env.REACT_APP_CLIENT_ID ?? "";
   const userRole = useAppSelector((state) => state.user.role);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSuccess = (res: any) => {
-    dispatch(setUserInfo(res.profileObj));
+    dispatch(setUserInfo(jwtDecode(res.credential)));
+    if (userRole === "Patient") {
+      navigate("patient-dashboard");
+      return;
+    }
+    navigate("doctor-dashboard");
   };
-  const onFailure = (res: any) => {
-    console.error("login failed ", res);
+  const onFailure = () => {
+    console.error("failed");
   };
 
   const onToggle = () => {
     if (userRole === "Patient") {
-      console.error("hh")
+      console.error("hh");
       dispatch(setUserRole("Doctor"));
       return;
     }
@@ -66,11 +75,7 @@ function LoginPage() {
                   />
                   <span className="m-2">Login as a patient</span>
                 </div>
-                <LoginButton
-                  clientId={clientId}
-                  onFailure={onFailure}
-                  onSuccess={onSuccess}
-                />
+                <GoogleLogin onError={onFailure} onSuccess={onSuccess} />
               </div>
             </div>
           </div>

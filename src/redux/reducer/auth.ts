@@ -6,8 +6,7 @@ const initialState: IUser = {
   email: "",
   familyName: "",
   givenName: "",
-  googleId: "",
-  imageUrl: "",
+  picture: "",
   name: "",
   role: "Patient",
 };
@@ -20,8 +19,7 @@ const userReducer = createSlice({
       state.familyName = encryptedValues.familyName;
       state.email = encryptedValues.email;
       state.givenName = encryptedValues.givenName;
-      state.googleId = encryptedValues.googleId;
-      state.imageUrl = encryptedValues.imageUrl;
+      state.picture = encryptedValues.picture;
       state.name = encryptedValues.name;
     },
     resetUserInfo: (state, action) => {
@@ -29,8 +27,7 @@ const userReducer = createSlice({
         email: "",
         familyName: "",
         givenName: "",
-        googleId: "",
-        imageUrl: "",
+        picture: "",
         name: "",
         role: "Patient",
       };

@@ -7,17 +7,23 @@ import { PersistGate } from "reduxjs-toolkit-persist/integration/react";
 import { persistor, store } from "./redux/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+const clientId = process.env.REACT_APP_CLIENT_ID ?? "";
+
 root.render(
-  <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </PersistGate>
-  </Provider>
+  <GoogleOAuthProvider clientId={clientId}>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  </GoogleOAuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,9 +1,4 @@
 import "./App.css";
-import LoginButton from "./components/login/login";
-import { gapi } from "gapi-script";
-import { useEffect } from "react";
-import { useAppDispatch } from "./redux/store";
-import { setUserInfo } from "./redux/reducer/auth";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/login";
 
