@@ -1,11 +1,7 @@
-import {
-  GoogleLogin,
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline,
-} from "react-google-login";
-import { setUserInfo } from "../redux/reducer/auth";
-import { useAppDispatch } from "../redux/store";
-import { IUser } from "../models/googleauth/IUser";
+import { GoogleLogin } from "react-google-login";
+import { setUserInfo } from "../../redux/reducer/auth";
+import { useAppDispatch } from "../../redux/store";
+import "./login.css";
 //our login button we use for exeuting google login behaviour
 
 const LoginButton = () => {
@@ -27,6 +23,7 @@ const LoginButton = () => {
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
+        className="g-login"
       />
     </div>
   );
