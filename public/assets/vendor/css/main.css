@@ -323,11 +323,16 @@
       order: 2;
       margin: 0 15px 0 0;
       padding: 6px 15px;
+      
     }
   
     .header .navmenu {
       order: 3;
     }
+  }
+
+  .cta-btn{
+    cursor: pointer;
   }
 /*   
   .scrolled .header {
