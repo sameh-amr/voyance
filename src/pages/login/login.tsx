@@ -1,4 +1,3 @@
-import LoginButton from "../../components/login/login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
@@ -8,16 +7,6 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
 function LoginPage() {
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: process.env.REACT_APP_CLIENT_ID,
-        scope: "",
-      });
-      gapi.load("client:auth2", start);
-    }
-  });
-
   const clientId = process.env.REACT_APP_CLIENT_ID ?? "";
   const userRole = useAppSelector((state) => state.user.role);
   const dispatch = useAppDispatch();
@@ -66,7 +55,7 @@ function LoginPage() {
                 Tenetur quia eos. Autem tempore quibusdam vel necessitatibus
                 optio ad corporis.
               </p>
-              <div className="text-center">
+              <div>
                 <div className="mb-2">
                   <input
                     type="checkbox"
@@ -75,7 +64,14 @@ function LoginPage() {
                   />
                   <span className="m-2">Login as a patient</span>
                 </div>
-                <GoogleLogin onError={onFailure} onSuccess={onSuccess} />
+                <div>
+                  <GoogleLogin
+                    width={"20px"}
+                    size="medium"
+                    onError={onFailure}
+                    onSuccess={onSuccess}
+                  />
+                </div>
               </div>
             </div>
           </div>
