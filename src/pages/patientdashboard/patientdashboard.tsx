@@ -1,3 +1,4 @@
+import AppointmentsTable from "../../components/appointmentstable/appointmentstable";
 import AppointmentsSection from "./appointmentssection/appointmentssection";
 
 const PatientDashboard = () => {
@@ -233,6 +234,7 @@ const PatientDashboard = () => {
       </section>
 
       <AppointmentsSection />
+      <AppointmentsTable />
     </>
   );
 };
