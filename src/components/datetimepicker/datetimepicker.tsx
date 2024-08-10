@@ -61,8 +61,6 @@ const DateTimePickerComponent = (props: {
       return false;
     }
 
-    // // Disable approved time slot
-    // if (hours === 10 && minutes === 0) return false;
 
     return true;
   };

@@ -6,4 +6,5 @@ export type IUser = {
   givenName: string | null;
   name: string | null;
   role: string;
+  isAuthenticated?: boolean;
 };

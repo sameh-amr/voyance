@@ -9,6 +9,7 @@ const initialState: IUser = {
   picture: "",
   name: "",
   role: "Patient",
+  isAuthenticated: false,
 };
 const userReducer = createSlice({
   name: "user",
@@ -22,8 +23,9 @@ const userReducer = createSlice({
       state.givenName = encryptedValues.given_name;
       state.picture = encryptedValues.picture;
       state.name = encryptedValues.name;
+      state.isAuthenticated = true;
     },
-    resetUserInfo: (state, action) => {
+    resetUserInfo: (state) => {
       state = {
         email: "",
         familyName: "",
@@ -31,6 +33,7 @@ const userReducer = createSlice({
         picture: "",
         name: "",
         role: "Patient",
+        isAuthenticated: false,
       };
     },
     setUserRole: (state, action) => {

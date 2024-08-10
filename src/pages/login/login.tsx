@@ -5,6 +5,7 @@ import { setUserInfo, setUserRole } from "../../redux/reducer/auth";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { Roles } from "../../constants/role";
 
 function LoginPage() {
   const clientId = process.env.REACT_APP_CLIENT_ID ?? "";
@@ -15,7 +16,7 @@ function LoginPage() {
   //on google login success or failure
   const onSuccess = (res: any) => {
     dispatch(setUserInfo(jwtDecode(res.credential)));
-    if (userRole === "Patient") {
+    if (userRole === Roles.PATIENT) {
       navigate("patient-dashboard");
       return;
     }
@@ -27,11 +28,11 @@ function LoginPage() {
 
   //checking who is currently logging in is it a doctor or patient
   const onToggle = () => {
-    if (userRole === "Patient") {
-      dispatch(setUserRole("Doctor"));
+    if (userRole === Roles.PATIENT) {
+      dispatch(setUserRole(Roles.DOCTOR));
       return;
     }
-    dispatch(setUserRole("Patient"));
+    dispatch(setUserRole(Roles.PATIENT));
   };
   return (
     <section id="hero" className="hero section light-background">
@@ -60,7 +61,7 @@ function LoginPage() {
                 <div className="mb-2">
                   <input
                     type="checkbox"
-                    checked={userRole === "Patient"}
+                    checked={userRole === Roles.PATIENT}
                     onChange={onToggle}
                   />
                   <span className="m-2">Login as a patient</span>
