@@ -5,7 +5,10 @@ import { IUser } from "../../models/googleauth/IUser";
 import { AppointmentState } from "../../constants/appointmentstate";
 import { Roles } from "../../constants/role";
 import { useDispatch } from "react-redux";
-import { removeAppointment } from "../../redux/reducer/appointment";
+import {
+  removeAppointment,
+  updateAppointment,
+} from "../../redux/reducer/appointment";
 import { useState } from "react";
 
 const AppointmentsTable = () => {
@@ -14,21 +17,50 @@ const AppointmentsTable = () => {
     (state) => state.appointments
   );
   const [appointmentDeleted, setAppointmentDeleted] = useState<boolean>(false);
+  const [appointmentUpdated, setAppointmentUpdated] = useState<boolean>(false);
+
   const userRole: string = useAppSelector((state) => state.user.role);
 
-  const onAppointmentStateChanged = (appointment: IAppointment) => {
-    dispatch(removeAppointment(appointment));
-    setAppointmentDeleted(true);
-    const timer = setTimeout(() => {
-      setAppointmentDeleted(false);
-    }, 3000);
+  const onAppointmentStateChanged = (appointment: IAppointment, e: any) => {
+    console.error(e.target.value);
+
+    if (
+      e.target.value === AppointmentState.APPROVED ||
+      e.target.value === AppointmentState.DECLINED
+    ) {
+      dispatch(
+        updateAppointment({
+          ...appointment,
+          appointmentState:
+            e.target.value === "Accept"
+              ? AppointmentState.APPROVED
+              : AppointmentState.DECLINED,
+        })
+      );
+      setAppointmentUpdated(true);
+      const successtimer = setTimeout(() => {
+        setAppointmentUpdated(false);
+      }, 3000);
+    } else {
+      dispatch(removeAppointment(appointment));
+      setAppointmentDeleted(true);
+      const timer = setTimeout(() => {
+        setAppointmentDeleted(false);
+      }, 3000);
+    }
   };
   return (
     <section className="departments section light-background">
       <div className="container">
         <div className="container section-title">
-          <h2>Your history</h2>
-          <p>this is where you can view your clinic history</p>
+          <h2>
+            {userRole === Roles.PATIENT
+              ? "Your History"
+              : "Scheduled Appointments"}
+          </h2>
+          {userRole === Roles.PATIENT && (
+            <p>this is where you can view your clinic history</p>
+          )}
         </div>
         <div className="table-responsive">
           <div
@@ -36,6 +68,13 @@ const AppointmentsTable = () => {
             className="error-message"
           >
             Appointment Deleted
+          </div>
+
+          <div
+            style={{ display: appointmentUpdated ? "block" : "none" }}
+            className="sent-message"
+          >
+            request has been updated successfully. Thank you!
           </div>
           <table className="table table-striped table-bordered">
             <thead className="thead-dark">
@@ -68,12 +107,32 @@ const AppointmentsTable = () => {
                         <select
                           className="form-control"
                           value={appointment.appointmentState || "Pending"}
-                          onChange={() =>
-                            onAppointmentStateChanged(appointment)
+                          onChange={(e) =>
+                            onAppointmentStateChanged(appointment, e)
+                          }
+                          disabled={
+                            appointment.appointmentState ===
+                              AppointmentState.APPROVED ||
+                            appointment.appointmentState ===
+                              AppointmentState.DECLINED
                           }
                         >
-                          <option disabled>Pending</option>
-                          <option value="Cancel">Cancel</option>
+                          {userRole === Roles.PATIENT ? (
+                            <>
+                              <option disabled>Pending</option>
+                              <option value="Cancel">Cancel</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="">Action</option>
+                              <option value={AppointmentState.APPROVED}>
+                                Accepted
+                              </option>
+                              <option value={AppointmentState.DECLINED}>
+                                Declined
+                              </option>
+                            </>
+                          )}
                         </select>
                       )}
                     </td>

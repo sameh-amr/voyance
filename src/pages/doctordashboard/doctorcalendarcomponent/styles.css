@@ -1,0 +1,21 @@
+.calendar-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .rbc-calendar {
+    font-family: Arial, sans-serif;
+  }
+  
+  .rbc-event {
+    padding: 0.5rem;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .rbc-event:hover {
+    opacity: 1;
+  }
+  

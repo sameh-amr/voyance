@@ -31,9 +31,24 @@ const appointmentReducer = createSlice({
     resetAppointments: (state, action) => {
       state = [];
     },
+    updateAppointment: (state, action) => {
+      const { email, name, fromDateTime } = action.payload;
+
+      return state.map((appointment) =>
+        appointment.email === email &&
+        appointment.name === name &&
+        appointment.fromDateTime === fromDateTime
+          ? { ...action.payload }
+          : appointment
+      );
+    },
   },
 });
 
-export const { setAppointmentInfo, resetAppointments, removeAppointment } =
-  appointmentReducer.actions;
+export const {
+  setAppointmentInfo,
+  resetAppointments,
+  removeAppointment,
+  updateAppointment,
+} = appointmentReducer.actions;
 export default appointmentReducer;
