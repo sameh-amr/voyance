@@ -22,7 +22,6 @@ const AppointmentsTable = () => {
   const userRole: string = useAppSelector((state) => state.user.role);
 
   const onAppointmentStateChanged = (appointment: IAppointment, e: any) => {
-    console.error(e.target.value);
 
     if (
       e.target.value === AppointmentState.APPROVED ||
