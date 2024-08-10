@@ -1,20 +1,17 @@
 import "./App.css";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login/login";
 import PatientDashboard from "./pages/patientdashboard/patientdashboard";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DoctorDashboard from "./pages/doctordashboard/doctordashboard";
-import { useSelector } from "react-redux";
-import { RootState } from "./redux/store";
 import ProtectedRoute from "./HOC/protectedroute/protectedroute";
 import { Roles } from "./constants/role";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderComponent from "./components/header/header";
 
 function App() {
-
   return (
     <>
       <HeaderComponent />

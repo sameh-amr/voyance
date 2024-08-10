@@ -1,14 +1,12 @@
-import { gapi } from "gapi-script";
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { setUserInfo, setUserRole } from "../../redux/reducer/auth";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { Roles } from "../../constants/role";
+import { toast } from "react-toastify";
 
 function LoginPage() {
-  const clientId = process.env.REACT_APP_CLIENT_ID ?? "";
   const userRole = useAppSelector((state) => state.user.role);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -23,7 +21,16 @@ function LoginPage() {
     navigate("doctor-dashboard");
   };
   const onFailure = () => {
-    console.error("failed");
+    toast.error("You are authorized to view this page. Redirecting to login", {
+      position: "top-right",
+      autoClose: 2000, // Auto-close after 2 seconds
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   //checking who is currently logging in is it a doctor or patient

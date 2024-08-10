@@ -1,7 +1,6 @@
 import { useAppSelector } from "../../redux/store";
 import { IAppointment } from "../../models/appointment/IAppontment";
 import "./styles.css";
-import { IUser } from "../../models/googleauth/IUser";
 import { AppointmentState } from "../../constants/appointmentstate";
 import { Roles } from "../../constants/role";
 import { useDispatch } from "react-redux";
@@ -29,20 +28,17 @@ const AppointmentsTable = () => {
       dispatch(
         updateAppointment({
           ...appointment,
-          appointmentState:
-            e.target.value === "Accept"
-              ? AppointmentState.APPROVED
-              : AppointmentState.DECLINED,
+          appointmentState: e.target.value,
         })
       );
       setAppointmentUpdated(true);
-      const successtimer = setTimeout(() => {
+      setTimeout(() => {
         setAppointmentUpdated(false);
       }, 3000);
     } else {
       dispatch(removeAppointment(appointment));
       setAppointmentDeleted(true);
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         setAppointmentDeleted(false);
       }, 3000);
     }

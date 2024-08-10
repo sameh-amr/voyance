@@ -23,7 +23,8 @@ const persistedReducer = persistReducer(persistConfig, appReducer);
 //configuring the store with the previous values
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 });
 
 //to get the dispatch type from the store

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { encryptObject } from "../../utils/Encyption/encryption";
 import { IAppointment } from "../../models/appointment/IAppontment";
 //defining the state and actions for the appointments in our redux store
 const initialState: IAppointment[] = [];
@@ -29,7 +28,7 @@ const appointmentReducer = createSlice({
       );
     },
     resetAppointments: (state) => {
-      state = [];
+      return initialState;
     },
     updateAppointment: (state, action) => {
       const { email, name, fromDateTime } = action.payload;

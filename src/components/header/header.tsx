@@ -7,14 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 const HeaderComponent = () => {
   const dispatch = useAppDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
-
 
   const onLogoutClicked = () => {
     googleLogout();
     dispatch(resetUserInfo());
-    navigate("/")
+    navigate("/");
   };
 
   const onResetReduxClicked = () => {
@@ -27,7 +26,7 @@ const HeaderComponent = () => {
         <div className="container d-flex justify-content-center justify-content-md-between">
           <div className="contact-info d-flex align-items-center">
             <i className="bi bi-envelope d-flex align-items-center">
-              <a href="mailto:contact@example.com">contact@example.com</a>
+              <a href="mailto:contact@example.com">contact@voyance.com</a>
             </i>
             <i className="bi bi-phone d-flex align-items-center ms-4">
               <span>+1 5589 55488 55</span>
@@ -53,6 +52,9 @@ const HeaderComponent = () => {
       <div className="branding d-flex align-items-center">
         <div className="container position-relative d-flex align-items-center justify-content-between">
           <a className="logo d-flex align-items-center me-auto">
+            <img
+              src={process.env.PUBLIC_URL + "favicon.ico"}
+            />
             <h1 className="sitename">Voyance Health</h1>
           </a>
           <nav id="navmenu" className="navmenu">
