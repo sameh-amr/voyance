@@ -8,11 +8,13 @@ export const encryptObject = (
   const encryptedObj: Record<string, any> = {};
 
   Object.keys(obj).forEach((key) => {
-    const encryptedValue = CryptoJS.AES.encrypt(
-      JSON.stringify(obj[key] ?? ""),
-      process.env.REACT_APP_ENCRYPTIONKEY ?? ""
-    ).toString();
-    encryptedObj[key] = encryptedValue;
+    if (key !== "role" && key !== "isAuthenticated") {
+      const encryptedValue = CryptoJS.AES.encrypt(
+        JSON.stringify(obj[key] ?? ""),
+        process.env.REACT_APP_ENCRYPTIONKEY ?? ""
+      ).toString();
+      encryptedObj[key] = encryptedValue;
+    }
   });
 
   return encryptedObj;
@@ -30,7 +32,7 @@ export const decryptObject = (
       process.env.REACT_APP_ENCRYPTIONKEY ?? ""
     ).toString(CryptoJS.enc.Utf8);
     try {
-      if (key === "role") {
+      if (key === "role"||key==="isAuthenticated") {
         decryptedObj[key] = decryptedValue;
       } else {
         decryptedObj[key] = JSON.parse(decryptedValue);
