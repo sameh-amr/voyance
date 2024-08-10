@@ -1,6 +1,7 @@
 import DatePicker from "react-datepicker";
 import { IAppointment } from "../../models/appointment/IAppontment";
 import { useAppSelector } from "../../redux/store";
+import { AppointmentState } from "../../constants/appointmentstate";
 
 const DateTimePickerComponent = (props: {
   selectedDateAndTime: Date | null;
@@ -40,7 +41,11 @@ const DateTimePickerComponent = (props: {
     });
 
     // Return false if the date and time already exist
-    if (existingAppointment) return false;
+    if (
+      existingAppointment &&
+      existingAppointment.appointmentState === AppointmentState.APPROVED
+    )
+      return false;
     // Allow only 9 am to 5 pm
     if (hours < 9 || hours >= 17) return false;
 

@@ -22,7 +22,6 @@ const AppointmentsTable = () => {
   const userRole: string = useAppSelector((state) => state.user.role);
 
   const onAppointmentStateChanged = (appointment: IAppointment, e: any) => {
-
     if (
       e.target.value === AppointmentState.APPROVED ||
       e.target.value === AppointmentState.DECLINED
@@ -96,9 +95,12 @@ const AppointmentsTable = () => {
                       {new Date(appointment.fromDateTime!).toLocaleString()}
                     </td>
                     <td>
-                      {(userRole === Roles.PATIENT &&
-                        appointment.appointmentState ===
-                          AppointmentState.APPROVED) ||
+                      {/*here i am telling react if this user is a patient and the appointment is approved or declined siable select and show him the state */}
+                      {/*here i am telling react if this user is a patient and the appointment isnot yet approved or declined he can cancel it */}
+                      {/*same with the doctor but switching the options */}
+
+                      {appointment.appointmentState ===
+                        AppointmentState.APPROVED ||
                       appointment.appointmentState ===
                         AppointmentState.DECLINED ? (
                         appointment.appointmentState
