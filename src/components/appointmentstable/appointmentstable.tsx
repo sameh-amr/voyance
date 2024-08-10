@@ -22,7 +22,6 @@ const AppointmentsTable = () => {
     const timer = setTimeout(() => {
       setAppointmentDeleted(false);
     }, 3000);
-    
   };
   return (
     <section className="departments section light-background">
@@ -32,14 +31,12 @@ const AppointmentsTable = () => {
           <p>this is where you can view your clinic history</p>
         </div>
         <div className="table-responsive">
-          {appointmentDeleted && (
-            <div
-              style={{ display: appointmentDeleted ? "block" : "none" }}
-              className="error-message"
-            >
-              Appointment Deleted
-            </div>
-          )}
+          <div
+            style={{ display: appointmentDeleted ? "block" : "none" }}
+            className="error-message"
+          >
+            Appointment Deleted
+          </div>
           <table className="table table-striped table-bordered">
             <thead className="thead-dark">
               <tr>
@@ -58,7 +55,7 @@ const AppointmentsTable = () => {
                     <td>{appointment.email}</td>
                     <td>{appointment.name}</td>
                     <td>
-                      {new Date(appointment.fromDateTime).toLocaleString()}
+                      {new Date(appointment.fromDateTime!).toLocaleString()}
                     </td>
                     <td>
                       {(userRole === Roles.PATIENT &&

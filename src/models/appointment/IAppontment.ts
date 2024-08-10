@@ -2,6 +2,6 @@
 export type IAppointment = {
   email: string | null;
   name: string | null;
-  fromDateTime: Date;
+  fromDateTime: Date | null;
   appointmentState: string;
 };

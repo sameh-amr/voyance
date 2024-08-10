@@ -3,7 +3,7 @@ import { IAppointment } from "../../models/appointment/IAppontment";
 import { useAppSelector } from "../../redux/store";
 
 const DateTimePickerComponent = (props: {
-  selectedDateAndTime: Date;
+  selectedDateAndTime: Date | null;
   onChange: (selectedValue: Date | null) => void;
 }) => {
   const { selectedDateAndTime, onChange } = props;
@@ -26,14 +26,17 @@ const DateTimePickerComponent = (props: {
     const minutes = date.getMinutes();
 
     const existingAppointment = currentAppointments.find((appointment) => {
-      const existingDate = new Date(appointment.fromDateTime);
-      return (
-        existingDate.getFullYear() === date.getFullYear() &&
-        existingDate.getMonth() === date.getMonth() &&
-        existingDate.getDate() === date.getDate() &&
-        existingDate.getHours() === hours &&
-        existingDate.getMinutes() === minutes
-      );
+      if (appointment.fromDateTime) {
+        const existingDate = new Date(appointment.fromDateTime);
+        return (
+          existingDate.getFullYear() === date.getFullYear() &&
+          existingDate.getMonth() === date.getMonth() &&
+          existingDate.getDate() === date.getDate() &&
+          existingDate.getHours() === hours &&
+          existingDate.getMinutes() === minutes
+        );
+      }
+      return true;
     });
 
     // Return false if the date and time already exist
@@ -61,6 +64,7 @@ const DateTimePickerComponent = (props: {
 
   return (
     <DatePicker
+      placeholderText="Choose the schedule"
       selected={selectedDateAndTime}
       onChange={onChange}
       showTimeSelect

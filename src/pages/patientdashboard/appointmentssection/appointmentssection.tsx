@@ -16,41 +16,48 @@ const AppointmentsSection = () => {
   const [selectedAppointment, setSelectedAppointment] = useState<IAppointment>({
     name: userData.name,
     email: userData.email,
-    fromDateTime: new Date(),
+    fromDateTime: null,
     appointmentState: AppointmentState.PENDING,
   });
 
   const [appointmentScheduled, setAppointmentScheduled] =
+    useState<boolean>(false);
+  const [appointmentDateRequired, setAppointmentDateRequired] =
     useState<boolean>(false);
   const [appointentError, setAppointmentError] = useState<boolean>(false);
 
   const onstartDateTimeChange = (value: Date | null) => {
     setSelectedAppointment({
       ...selectedAppointment,
-      fromDateTime: value ?? new Date(),
+      fromDateTime: value,
     });
   };
 
   //dispatch the action for storing the new appointment for the user
   function onMakeAnAppointmentClicked(event: any): void {
-    try {
-      dispatch(setAppointmentInfo(selectedAppointment));
-      setAppointmentScheduled(true);
-      setTimeout(() => {
-        setAppointmentScheduled(false);
-      }, 2000);
-    } catch (err) {
-      setAppointmentError(true);
-      setTimeout(() => {
-        setAppointmentError(false);
-      }, 2000);
+    if (!selectedAppointment.fromDateTime) {
+      setAppointmentDateRequired(true);
+      setTimeout(() => setAppointmentDateRequired(false), 2000);
+    } else {
+      try {
+        dispatch(setAppointmentInfo(selectedAppointment));
+        setAppointmentScheduled(true);
+        setTimeout(() => {
+          setAppointmentScheduled(false);
+        }, 2000);
+      } catch (err) {
+        setAppointmentError(true);
+        setTimeout(() => {
+          setAppointmentError(false);
+        }, 2000);
+      }
+      setSelectedAppointment({
+        name: userData.name,
+        email: userData.email,
+        fromDateTime: null,
+        appointmentState: AppointmentState.PENDING,
+      });
     }
-    setSelectedAppointment({
-      name: userData.name,
-      email: userData.email,
-      fromDateTime: new Date(),
-      appointmentState: AppointmentState.PENDING,
-    });
   }
 
   return (
@@ -103,6 +110,15 @@ const AppointmentsSection = () => {
                 className="error-message"
               >
                 Something went wrong
+              </div>
+            )}
+
+            {appointmentDateRequired && (
+              <div
+                style={{ display: appointmentDateRequired ? "block" : "none" }}
+                className="error-message"
+              >
+                Please provide a value for the date and time
               </div>
             )}
 
