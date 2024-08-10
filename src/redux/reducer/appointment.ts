@@ -19,12 +19,21 @@ const appointmentReducer = createSlice({
       appointmentsEntriesArray.push(newEntry);
       state = appointmentsEntriesArray;
     },
+
+    removeAppointment: (state, action) => {
+      return state.filter(
+        (appointment) =>
+          appointment.email !== action.payload.email ||
+          appointment.name !== action.payload.name ||
+          appointment.fromDateTime !== action.payload.fromDateTime
+      );
+    },
     resetAppointments: (state, action) => {
       state = [];
     },
   },
 });
 
-export const { setAppointmentInfo, resetAppointments } =
+export const { setAppointmentInfo, resetAppointments, removeAppointment } =
   appointmentReducer.actions;
 export default appointmentReducer;

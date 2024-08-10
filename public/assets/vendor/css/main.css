@@ -173,7 +173,7 @@ h6 {
 
 /* PHP Email Form Messages
   ------------------------------*/
-.php-email-form .error-message {
+.error-message {
   display: none;
   background: #df1529;
   color: #ffffff;
