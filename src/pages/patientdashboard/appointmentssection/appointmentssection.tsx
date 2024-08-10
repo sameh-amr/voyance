@@ -35,7 +35,11 @@ const AppointmentsSection = () => {
 
   //dispatch the action for storing the new appointment for the user
   function onMakeAnAppointmentClicked(event: any): void {
-    if (!selectedAppointment.fromDateTime) {
+    if (
+      !selectedAppointment.fromDateTime ||
+      (selectedAppointment.fromDateTime.getHours() === 0 &&
+        selectedAppointment.fromDateTime.getMinutes() === 0)
+    ) {
       setAppointmentDateRequired(true);
       setTimeout(() => setAppointmentDateRequired(false), 2000);
     } else {

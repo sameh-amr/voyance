@@ -4,6 +4,7 @@ import { resetUserInfo } from "../../redux/reducer/auth";
 import { resetAppointments } from "../../redux/reducer/appointment";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const HeaderComponent = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,16 @@ const HeaderComponent = () => {
   const onResetReduxClicked = () => {
     dispatch(resetUserInfo());
     dispatch(resetAppointments());
+    toast.success("all data cleared from redux store", {
+      position: "top-right",
+      autoClose: 2000, // Auto-close after 2 seconds
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
   return (
     <header id="header" className="header sticky-top">
