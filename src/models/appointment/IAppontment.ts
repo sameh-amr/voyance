@@ -3,4 +3,5 @@ export type IAppointment = {
   email: string | null;
   name: string | null;
   fromDateTime: Date;
+  appointmentState: string;
 };

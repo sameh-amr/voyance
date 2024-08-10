@@ -13,6 +13,7 @@ const appointmentReducer = createSlice({
         email: action.payload.email,
         name: action.payload.name,
         fromDateTime: action.payload.fromDateTime,
+        appointmentState: action.payload.appointmentState,
       };
       var appointmentsEntriesArray = state;
       appointmentsEntriesArray.push(newEntry);
@@ -24,5 +25,6 @@ const appointmentReducer = createSlice({
   },
 });
 
-export const { setAppointmentInfo, resetAppointments } = appointmentReducer.actions;
+export const { setAppointmentInfo, resetAppointments } =
+  appointmentReducer.actions;
 export default appointmentReducer;

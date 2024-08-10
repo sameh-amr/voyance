@@ -1,11 +1,59 @@
+import { useState } from "react";
 import DateTimePickerComponent from "../../../components/datetimepicker/datetimepicker";
 import InputComponent from "../../../components/input/input";
 import { useAppSelector } from "../../../redux/store";
 import { decryptObject } from "../../../utils/Encyption/encryption";
+import { IAppointment } from "../../../models/appointment/IAppontment";
+import { useDispatch } from "react-redux";
+import { setAppointmentInfo } from "../../../redux/reducer/appointment";
+import { AppointmentState } from "../../../constants/appointmentstate";
 
 const AppointmentsSection = () => {
-  //decrypting user data before displaying it to the user
   const userData = decryptObject(useAppSelector((state) => state.user));
+  const dispatch = useDispatch();
+  const currentAppointments: IAppointment[] = useAppSelector(
+    (state) => state.appointments
+  );
+
+  const [selectedAppointment, setSelectedAppointment] = useState<IAppointment>({
+    name: userData.name,
+    email: userData.email,
+    fromDateTime: new Date(),
+    appointmentState: AppointmentState.PENDING,
+  });
+
+  const [appointmentScheduled, setAppointmentScheduled] =
+    useState<boolean>(false);
+  const [appointentError, setAppointmentError] = useState<boolean>(false);
+
+  const onstartDateTimeChange = (value: Date | null) => {
+    setSelectedAppointment({
+      ...selectedAppointment,
+      fromDateTime: value ?? new Date(),
+    });
+  };
+
+  //dispatch the action for storing the new appointment for the user
+  function onMakeAnAppointmentClicked(event: any): void {
+    try {
+      dispatch(setAppointmentInfo(selectedAppointment));
+      setAppointmentScheduled(true);
+      setTimeout(() => {
+        setAppointmentScheduled(false);
+      }, 2000);
+    } catch (err) {
+      setAppointmentError(true);
+      setTimeout(() => {
+        setAppointmentError(false);
+      }, 2000);
+    }
+    setSelectedAppointment({
+      name: userData.name,
+      email: userData.email,
+      fromDateTime: new Date(),
+      appointmentState: AppointmentState.PENDING,
+    });
+  }
 
   return (
     <section id="appointment" className="appointment section">
@@ -17,12 +65,7 @@ const AppointmentsSection = () => {
         </p>
       </div>
       <div className="container" data-aos-delay="100">
-        <form
-          action="forms/appointment.php"
-          method="post"
-          role="form"
-          className="php-email-form"
-        >
+        <div role="form" className="php-email-form">
           <div className="row">
             <div className="col-md-4 form-group">
               <InputComponent
@@ -49,20 +92,36 @@ const AppointmentsSection = () => {
               />
             </div>
             <div className="col-md-4 form-group mt-3 mt-md-0">
-              <DateTimePickerComponent />
+              <DateTimePickerComponent
+                selectedDateAndTime={selectedAppointment.fromDateTime}
+                onChange={onstartDateTimeChange}
+              />
             </div>
           </div>
           <div className="mt-3">
-            <div className="loading">Loading</div>
-            <div className="error-message"></div>
-            <div className="sent-message">
+            {appointentError && (
+              <div
+                style={{ display: appointentError ? "block" : "none" }}
+                className="error-message"
+              >
+                Something went wrong
+              </div>
+            )}
+
+            <div
+              style={{ display: appointmentScheduled ? "block" : "none" }}
+              className="sent-message"
+            >
               Your appointment request has been sent successfully. Thank you!
             </div>
+
             <div className="text-center">
-              <button type="submit">Make an Appointment</button>
+              <button onClick={onMakeAnAppointmentClicked}>
+                Make an Appointment
+              </button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </section>
   );

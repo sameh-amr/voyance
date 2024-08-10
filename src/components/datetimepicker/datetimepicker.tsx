@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
-const DateTimePickerComponent = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+const DateTimePickerComponent = (props: {
+  selectedDateAndTime: Date;
+  onChange: (selectedValue: Date | null) => void;
+}) => {
+  const { selectedDateAndTime, onChange } = props;
 
   const isValidDate = (date: Date) => {
     const day = date.getDay();
@@ -51,11 +54,8 @@ const DateTimePickerComponent = () => {
 
   return (
     <DatePicker
-      selected={selectedDate}
-      onChange={(date) => {
-        setSelectedDate(new Date(date ?? ""));
-        console.error(new Date(date ?? ""));
-      }}
+      selected={selectedDateAndTime}
+      onChange={onChange}
       showTimeSelect
       timeFormat="HH:mm"
       timeIntervals={20}
