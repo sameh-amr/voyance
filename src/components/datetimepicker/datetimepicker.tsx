@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { IAppointment } from "../../models/appointment/IAppontment";
 import { useAppSelector } from "../../redux/store";
@@ -60,7 +59,6 @@ const DateTimePickerComponent = (props: {
     return true;
   };
 
-
   return (
     <DatePicker
       selected={selectedDateAndTime}
@@ -73,6 +71,7 @@ const DateTimePickerComponent = (props: {
       filterTime={isValidTime}
       dateFormat="yyyy-MM-dd HH:mm:ss"
       minDate={new Date()}
+      className="w-100"
     />
   );
 };

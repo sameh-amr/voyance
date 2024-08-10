@@ -7,11 +7,11 @@ import { IAppointment } from "../../../models/appointment/IAppontment";
 import { useDispatch } from "react-redux";
 import { setAppointmentInfo } from "../../../redux/reducer/appointment";
 import { AppointmentState } from "../../../constants/appointmentstate";
+import "./styles.css";
 
 const AppointmentsSection = () => {
   const userData = decryptObject(useAppSelector((state) => state.user));
   const dispatch = useDispatch();
-
 
   const [selectedAppointment, setSelectedAppointment] = useState<IAppointment>({
     name: userData.name,
@@ -114,7 +114,10 @@ const AppointmentsSection = () => {
             </div>
 
             <div className="text-center">
-              <button onClick={onMakeAnAppointmentClicked}>
+              <button
+                className="appointment-btn"
+                onClick={onMakeAnAppointmentClicked}
+              >
                 Make an Appointment
               </button>
             </div>
