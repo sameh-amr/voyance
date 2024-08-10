@@ -3,11 +3,12 @@ import { persistStore, persistReducer } from "reduxjs-toolkit-persist";
 import storage from "reduxjs-toolkit-persist/lib/storage";
 import logger from "redux-logger";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
-import { userReducer } from "../reducer";
+import { userReducer, appointmentReducer } from "../reducer";
 
 //create all the slice for our redux store to be able to axis thise slices
 const appReducer = combineReducers({
   user: userReducer.reducer,
+  appointments: appointmentReducer.reducer,
 });
 
 //the persist configurations for redux store where storage is the local store of the browser (enabling caching)
