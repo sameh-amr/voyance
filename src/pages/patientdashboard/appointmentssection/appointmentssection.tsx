@@ -11,9 +11,7 @@ import { AppointmentState } from "../../../constants/appointmentstate";
 const AppointmentsSection = () => {
   const userData = decryptObject(useAppSelector((state) => state.user));
   const dispatch = useDispatch();
-  const currentAppointments: IAppointment[] = useAppSelector(
-    (state) => state.appointments
-  );
+
 
   const [selectedAppointment, setSelectedAppointment] = useState<IAppointment>({
     name: userData.name,
