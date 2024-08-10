@@ -28,7 +28,7 @@ const appointmentReducer = createSlice({
           appointment.fromDateTime !== action.payload.fromDateTime
       );
     },
-    resetAppointments: (state, action) => {
+    resetAppointments: (state) => {
       state = [];
     },
     updateAppointment: (state, action) => {

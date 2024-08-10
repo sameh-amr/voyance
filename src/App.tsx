@@ -11,30 +11,34 @@ import { RootState } from "./redux/store";
 import ProtectedRoute from "./HOC/protectedroute/protectedroute";
 import { Roles } from "./constants/role";
 import "react-toastify/dist/ReactToastify.css";
+import HeaderComponent from "./components/header/header";
 
 function App() {
-  const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
   return (
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route
-        path="/doctor-dashboard"
-        element={
-          <ProtectedRoute role={Roles.DOCTOR}>
-            <DoctorDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/patient-dashboard"
-        element={
-          <ProtectedRoute role={Roles.PATIENT}>
-            <PatientDashboard />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+    <>
+      <HeaderComponent />
+
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/doctor-dashboard"
+          element={
+            <ProtectedRoute role={Roles.DOCTOR}>
+              <DoctorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/patient-dashboard"
+          element={
+            <ProtectedRoute role={Roles.PATIENT}>
+              <PatientDashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </>
   );
 }
 

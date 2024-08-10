@@ -26,15 +26,7 @@ const userReducer = createSlice({
       state.isAuthenticated = true;
     },
     resetUserInfo: (state) => {
-      state = {
-        email: "",
-        familyName: "",
-        givenName: "",
-        picture: "",
-        name: "",
-        role: "Patient",
-        isAuthenticated: false,
-      };
+      return initialState;
     },
     setUserRole: (state, action) => {
       state.role = action.payload;
