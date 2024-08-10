@@ -1,3 +1,4 @@
+import DateTimePickerComponent from "../../../components/datetimepicker/datetimepicker";
 import InputComponent from "../../../components/input/input";
 import { useAppSelector } from "../../../redux/store";
 import { decryptObject } from "../../../utils/Encyption/encryption";
@@ -48,14 +49,7 @@ const AppointmentsSection = () => {
               />
             </div>
             <div className="col-md-4 form-group mt-3 mt-md-0">
-              <input
-                type="datetime-local"
-                name="date"
-                className="form-control datepicker"
-                id="date"
-                placeholder="Appointment Date"
-                required
-              />
+              <DateTimePickerComponent />
             </div>
           </div>
           <div className="mt-3">
